@@ -4,7 +4,7 @@ from model.database import Database
 app = Flask(__name__)
 db = Database()
 
-# Página principal: Muestra todos los registros
+# Página principal: muestra todos los registros o, si se realiza una búsqueda, los resultados filtrados.
 @app.route('/')
 def index():
     try:
@@ -25,8 +25,7 @@ def buscar_usuario():
             usuarios = db.obtener_datos(consulta, (parametro, parametro))
         else:
             usuarios = db.obtener_datos("SELECT * FROM usuario")
-        # Se envía el término de búsqueda a la plantilla para poder mostrar el botón "Volver al inicio"
-        return render_template('index.html', usuarios=usuarios, query=termino)
+        return render_template('index.html', usuarios=usuarios)
     except Exception as e:
         print(f"❌ Error en buscar_usuario(): {e}")
         return render_template('error.html', mensaje=f"Error en la búsqueda: {e}")
