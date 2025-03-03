@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CRUD con Flask</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <style>
+        /* Estilos específicos para el buscador */
+        .search-form {
+            margin: 20px auto;
+            width: 80%;
+            text-align: center;
+        }
+        .search-form input[type="text"] {
+            width: 60%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        .search-form button {
+            padding: 10px 20px;
+            margin-left: 10px;
+            border: none;
+            background-color: #007BFF;
+            color: #fff;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .search-form button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <h1>¡Bienvenido a mi CRUD!</h1>
+
+    <!-- Formulario de búsqueda -->
+    <div class="search-form">
+        <form action="{{ url_for('buscar_usuario') }}" method="GET">
+            <input type="text" name="query" placeholder="Buscar por nombre o email" value="{{ query|default('') }}">
+            <button type="submit" class="btn">Buscar</button>
+        </form>
+        {% if query %}
+            <a href="{{ url_for('index') }}" class="btn back">Volver al inicio</a>
+        {% endif %}
+    </div>
+
+    <a href="{{ url_for('mostrar_formulario_agregar') }}" class="btn">Agregar Usuario</a>
+
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>Email</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for usuario in usuarios %}
+            <tr>
+                <td>{{ usuario['id'] }}</td>
+                <td>{{ usuario['nombre'] }}</td>
+                <td>{{ usuario['email'] }}</td>
+                <td>
+                    <a href="{{ url_for('mostrar_formulario_editar', id=usuario['id']) }}" class="btn edit">Editar</a>
+                    <a href="{{ url_for('eliminar_usuario', id=usuario['id']) }}" class="btn delete" onclick="return confirm('¿Estás seguro de eliminar este usuario?')">Eliminar</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>
