@@ -1,4 +1,4 @@
-# CRUD con Flask, MySQL y MVC
+# CRUD con Flask, MySQL, MVC y POO
 
 Este proyecto es una aplicación web CRUD implementada siguiendo el patrón **MVC** (Modelo-Vista-Controlador) y la programación orientada a objetos (POO) usando **Python**, **Flask** como framework web, **HTML** y **CSS** para la interfaz, y **MySQL** para el almacenamiento de datos.
 
